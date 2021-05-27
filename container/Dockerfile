@@ -59,5 +59,5 @@ ENV PYTHONDONTWRITEBYTECODE=TRUE
 ENV PATH="/opt/program:${PATH}"
 
 
-COPY ./prima_code /opt/program
+COPY prima_code /opt/program
 WORKDIR /opt/program
