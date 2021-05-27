@@ -53,11 +53,14 @@ opencv-python setuptools==41.0.0 pyyaml==5.1 flask && \
 RUN pip3 --no-cache-dir install 'git+https://github.com/facebookresearch/detectron2.git' layoutparser && \
         rm -rf /root/.cache
         
+RUN ln -s /usr/bin/python3 /usr/bin/python
+RUN ln -s /usr/bin/pip3 /usr/bin/pip
+
 
 ENV PYTHONUNBUFFERED=TRUE
 ENV PYTHONDONTWRITEBYTECODE=TRUE
 ENV PATH="/opt/program:${PATH}"
 
 
-COPY prima_code /opt/program
+COPY .prima_code /opt/program
 WORKDIR /opt/program
