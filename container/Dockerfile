@@ -1,0 +1,33 @@
+# Build an image that can do training and inference in SageMaker
+# This is a Python 2 image that uses the nginx, gunicorn, flask stack
+# for serving inferences in a stable way.
+
+FROM ubuntu:18.04
+
+MAINTAINER Amazon AI <sage-learner@amazon.com>
+
+RUN apt-get -y update && apt-get install -y --no-install-recommends \
+         wget \
+         nginx \
+         ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+
+RUN apt-get update \
+  && apt-get install -y python3-pip python3-dev \
+  && cd /usr/local/bin \
+  && ln -s /usr/bin/python3 python \
+  && pip3 install --upgrade pip
+
+
+RUN pip3 --no-cache-dir install numpy opencv-python setuptools==41.0.0 pyyaml==5.1 flask torch torchvision 'git+https://github.com/facebookresearch/detectron2.git' layoutparser && \
+        rm -rf /root/.cache
+
+
+ENV PYTHONUNBUFFERED=TRUE
+ENV PYTHONDONTWRITEBYTECODE=TRUE
+ENV PATH="/opt/program:${PATH}"
+
+
+COPY ./prima_code /opt/program
+WORKDIR /opt/program
