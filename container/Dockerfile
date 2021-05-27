@@ -33,7 +33,7 @@ RUN apt-get -y update && apt-get install -y --no-install-recommends \
          ca-certificates \
          python3-dev \
          build-essential \
-         manpages-dev 
+         manpages-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y git
