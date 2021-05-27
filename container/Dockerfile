@@ -17,7 +17,8 @@ RUN apt-get update \
   && apt-get install -y python3-pip python3-dev \
   && cd /usr/local/bin \
   && ln -s /usr/bin/python3 python \
-  && pip3 install --upgrade pip
+  && pip3 install --upgrade pip \ 
+  && apt-get install git-all
 
 
 RUN pip3 --no-cache-dir install numpy opencv-python setuptools==41.0.0 pyyaml==5.1 flask torch torchvision 'git+https://github.com/facebookresearch/detectron2.git' layoutparser && \
